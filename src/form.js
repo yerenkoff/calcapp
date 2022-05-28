@@ -68,29 +68,33 @@ class Form extends React.Component {
     }
 
     render() {
-        // console.log(this.props.formSums.leadPriceSum);
+        // console.log(this.props.conversions);
         let leadSumCell = 0;
         let leadPriceSumCell = 0;
         let channelCostSumCell = 0;
         for (let i of this.props.channelData) {
-            leadSumCell += i.leads;
-            leadPriceSumCell += i.leadPrice;
-            channelCostSumCell += i.channelCost;
+            leadSumCell += parseInt(i.leads);
+            leadPriceSumCell += parseInt(i.leadPrice);
+            channelCostSumCell += parseInt(i.channelCost);
         }
-        return (
-            <div>
+        let resultLeadsCell = leadSumCell / 100 * this.props.conversions;
+        let resultLeadPriceCell = channelCostSumCell / resultLeadsCell;
 
-                <button type="button" onClick={() => this.props.handleDeleteForm(this.props.formId)}>
+
+        return (
+            <div className="calcForm">
+
+                <button type="button" onClick={() => this.props.handleDeleteForm(this.props.formId)} className="deleteFormButton crossButton">
                     <svg version="1.1" meta="vk-icons-close" width="20" height="20" viewBox="0 0 20 20">
                         <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,16 L4,4"></path>
                         <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,4 L4,16"></path>
                     </svg>
                 </button>
-                <input type="text" placeholder="Название варианта расчёта" />
-                <input type="text" placeholder="Описание расчёта" />
-                <button type="button" onClick={() => this.change(true)}>ОТ ВОЗМОЖНОСТЕЙ</button>
-                <button type="button" onClick={() => this.change(false)}>ОТ БЮДЖЕТА</button>
-                <p>Посчитайте, сколько лидов и продаж можно получить при отсутствии ограничений по бюджету. Введите
+                <input type="text" placeholder="Название варианта расчёта" className='descriptionInput'/>
+                <input type="text" placeholder="Описание расчёта" className='descriptionInput'/>
+                <button type="button" onClick={() => this.change(true)} className="tableButton">ОТ ВОЗМОЖНОСТЕЙ</button>
+                <button type="button" onClick={() => this.change(false)} className="tableButton">ОТ БЮДЖЕТА</button>
+                <p className='info'>Посчитайте, сколько лидов и продаж можно получить при отсутствии ограничений по бюджету. Введите
                     предельное для данной тематики количество кликов по каналам, среднюю цену клика, текущую (или
                     среднюю для тематики) конверсию сайта и текущую конверсию из лидов в продажи.</p>
                 <table className="opportunityTable">
@@ -103,6 +107,7 @@ class Form extends React.Component {
                             <th>ЛИДЫ</th>
                             <th>ЦЕНА ЛИДА</th>
                             <th>РАСХОДЫ НА КАНАЛ, РУБ</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody className="calculationRows">
@@ -115,7 +120,7 @@ class Form extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <button onClick={this.newChannelClick} className="newChannel opportunityButton" type="button">НОВЫЙ КАНАЛ{this.props.formId}</button>
+                                <button onClick={this.newChannelClick} className="tableButton" type="button">НОВЫЙ КАНАЛ</button>
                             </td>
                             <td colSpan="3">
                                 Лиды (звонки и заявки)
@@ -123,19 +128,25 @@ class Form extends React.Component {
                             <td className="leadSumCell">{leadSumCell}</td>
                             <td className="leadPriceSumCell">{leadPriceSumCell}</td>
                             <td className="channelCostSumCell">{channelCostSumCell}</td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colSpan="4">
                                 Конверсия лидов в продажи, %
                             </td>
                             <td>
-                                <input type="number" value={this.props.formSums.conversionInSales} className="resultLeadsInput" onChange={(event) => this.props.handleConversion(this.props.formId, event.target.value)} />
+                                <input type="text" size="1" value={this.props.conversions} className="resultLeadsInput" onChange={(event) => this.props.handleConversion(this.props.formId, event.target.value)} />
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td colSpan="4">Продажи</td>
-                            <td className="resultLeadsCell">{this.props.formSums.leadSum / 100 * this.props.formSums.conversionInSales}</td>
-                            <td className="resultLeadPriceCell">{this.props.formSums.channelCostSum / (this.props.formSums.leadSum / 100 * this.props.formSums.conversionInSales)}</td>
+                            <td className="resultLeadsCell">{resultLeadsCell}</td>
+                            <td className="resultLeadPriceCell">{resultLeadPriceCell}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>

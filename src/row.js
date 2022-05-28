@@ -76,23 +76,23 @@ class Row extends React.Component {
                 <td>{this.props.channelData.channelName}</td>
                 <td>
                     {
-                        this.props.opportunity ? <input type="number" value={this.props.channelData.clicks} className="clicksInput" onChange={(event) => this.calculate("clicks", parseInt(event.target.value))} /> : this.props.channelData.clicks
+                        this.props.opportunity ? <input type="text" size="1" value={this.props.channelData.clicks} className="clicksInput" onChange={(event) => this.calculate("clicks", parseInt(event.target.value))} /> : this.props.channelData.clicks
                     }
 
                 </td>
-                <td><input type="number" value={this.props.channelData.clickPrice} className="clickPriceInput" onChange={(event) => this.calculate("clickPrice", parseInt(event.target.value))} />
+                <td><input type="text" size="1" value={this.props.channelData.clickPrice} className="clickPriceInput" onChange={(event) => this.calculate("clickPrice", parseInt(event.target.value))} />
                 </td>
-                <td><input type="number" value={this.props.channelData.conversion} className="conversionInput" onChange={(event) => this.calculate("conversion", parseInt(event.target.value))}/>
+                <td><input type="text" size="1" value={this.props.channelData.conversion} className="conversionInput" onChange={(event) => this.calculate("conversion", parseInt(event.target.value))}/>
                 </td>
                 <td className="leadCell">{this.props.channelData.leads}</td>
                 <td className="leadPriceCell">{this.props.channelData.leadPrice}</td>
                 <td className="channelCostCell">
                     {
-                        this.props.opportunity ? this.props.channelData.channelCost : <input type="number" value={this.props.channelData.channelCost} className="clicksInput" onChange={(event) => this.calculate("channelCost", parseInt(event.target.value))}/>
+                        this.props.opportunity ? this.props.channelData.channelCost : <input type="text" size="1" value={this.props.channelData.channelCost} className="clicksInput" onChange={(event) => this.calculate("channelCost", parseInt(event.target.value))}/>
                     }
                 </td>
-                <td>
-                    <button type="button" onClick={() => this.props.handleDeleteRow(this.props.formId, this.props.rowId)}>
+                <td className='closeCell'>
+                    <button type="button" onClick={() => this.props.handleDeleteRow(this.props.formId, this.props.rowId)} className="crossButton">
                         <svg version="1.1" meta="vk-icons-close" width="20" height="20" viewBox="0 0 20 20">
                             <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,16 L4,4"></path>
                             <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,4 L4,16"></path>

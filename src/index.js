@@ -32,7 +32,9 @@ class Container extends React.Component {
           // sales: 50,
           // customerPrice: 15000,
         }
-      ]
+      ],
+      conversions: [70],
+      modalClass: "modal", 
     }
     // this.handleAddChannel = this.handleAddChannel.bind(this);
     this.handleSetCurrentForm = this.handleSetCurrentForm.bind(this);
@@ -47,17 +49,24 @@ class Container extends React.Component {
   // }
 
   handleSetCurrentForm(formId) {
-    this.setState({ currentForm: formId })
+    this.setState({ 
+      currentForm: formId,
+      modalClass: "modal modalShow",
+     }, function() {
+       console.log(this.state.modalClass)
+     })
     console.log(formId);
   }
 
   handleConversion(formId, value) {
     this.setState(function (state) {
-      let newFormSums = state.formSums;
-      newFormSums[formId].conversionInSales = value;
+      let newConversions = state.conversions;
+      newConversions[formId] = value;
       return {
-        formSums: newFormSums,
+        conversions: newConversions,
       }
+    }, function() {
+      console.log(this.state.conversions)
     })
     // console.log(formId);
   }
@@ -66,10 +75,13 @@ class Container extends React.Component {
     this.setState(function (state) {
       let newFormData = state.formData;
       newFormData.splice(formId, 1);
+      let newConversions = state.conversions;
+      newConversions.splice(formId, 1);
       // console.log(formId, rowId);
       // console.log(newFormData);
       return {
         formData: newFormData,
+        conversions: newConversions,
       }
     }, function () {
       // console.log(this.state.formData);
@@ -175,18 +187,17 @@ class Container extends React.Component {
     var indents = [];
     for (var i = 0; i < this.state.formData.length; i++) {
       indents.push(
-        <Form formSums={this.state.formSums[i]} handleConversion={this.handleConversion} handleDeleteForm={this.handleDeleteForm} handleCalculate={this.handleCalculate} handleDeleteRow={this.handleDeleteRow} handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
+        <Form conversions={this.state.conversions[i]} handleConversion={this.handleConversion} handleDeleteForm={this.handleDeleteForm} handleCalculate={this.handleCalculate} handleDeleteRow={this.handleDeleteRow} handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
       );
     }
-    // console.log(indents);
     return (
       <div className='container'>
-        <div className="modal">
+        <div className={this.state.modalClass}>
           <form action="">
-            <button className="close" type="button">╳</button>
+            <button className="close" type="button" onClick={() => this.setState({modalClass: "modal"})}>╳</button>
             <h2>Добавить канал</h2>
             <input type="radio" id="yandex" name="channelType" value="Яндекс.Директ" defaultChecked onChange={(event) => this.setState({ channelType: event.target.value })} />
-            <label htmlFor="yandex">Яндекст.Директ</label><br />
+            <label htmlFor="yandex">Яндекс.Директ</label><br />
             <input type="radio" id="google" name="channelType" value="Google.Adwords" onChange={(event) => this.setState({ channelType: event.target.value })} />
             <label htmlFor="google">Google.Adwords</label><br />
             <input type="radio" id="seo" name="channelType" value="SEO" onChange={(event) => this.setState({ channelType: event.target.value })} />
@@ -206,7 +217,7 @@ class Container extends React.Component {
         }
 
 
-        <button className="addFormButton" onClick={() => this.setState(function (state) {
+        <button className="tableButton" onClick={() => this.setState(function (state) {
           let newFormData = state.formData;
           newFormData.push([{
             channelName: "Яндекс.Директ",
@@ -224,10 +235,14 @@ class Container extends React.Component {
             channelCostSum: 90000,
             sales: 50,
             customerPrice: 15000,
+            conversionInSales: 80,
           });
+          let newConversions = state.conversions;
+          newConversions.push(81);
           return {
             formData: newFormData,
             formSums: newFormSums,
+            conversions: newConversions,
           }
         })}>Добавить расчёт</button>
       </div>

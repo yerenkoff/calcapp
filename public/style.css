@@ -9,15 +9,12 @@ body {
 }
 
 h1, h2 {
-  color: #222;
+  color: #444;
 }
 
-table {
-  border-collapse: collapse;
-}
-
-td, th {
-  border: 1px solid #000;
+.modalShow {
+  -webkit-transform: translateY(0) !important;
+          transform: translateY(0) !important;
 }
 
 .modal {
@@ -80,6 +77,10 @@ td, th {
   display: inline-block;
 }
 
+.modal form label {
+  margin-left: 10px;
+}
+
 .modal form #buttonAdd {
   margin-top: 30px;
   line-height: 40px;
@@ -88,5 +89,133 @@ td, th {
   background-color: #7ae2ff;
   border: none;
   border-radius: 5px;
+}
+
+.container {
+  background-color: #ffffffdd;
+  width: calc(100% - 20px);
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 15px;
+  margin-top: 30px;
+  -webkit-box-shadow: 0 0 20px #00000044;
+          box-shadow: 0 0 20px #00000044;
+}
+
+.container .tableButton {
+  -webkit-box-shadow: 0 0 20px #00000022;
+          box-shadow: 0 0 20px #00000022;
+  background-color: #fff;
+  border: none;
+  line-height: 20px;
+  vertical-align: top;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #00000022;
+}
+
+.container .tableButton:hover {
+  -webkit-box-shadow: 0 0 10px #00000055;
+          box-shadow: 0 0 10px #00000055;
+  border: 1px solid #00000099;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container .calcForm {
+  background-color: #fff;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 0 20px #00000044;
+          box-shadow: 0 0 20px #00000044;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.container .calcForm .crossButton {
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  -webkit-box-shadow: 0 0 20px #00000022;
+          box-shadow: 0 0 20px #00000022;
+  border: 1px solid #00000000;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.container .calcForm .crossButton:hover {
+  -webkit-box-shadow: 0 0 10px #00000055;
+          box-shadow: 0 0 10px #00000055;
+  border: 1px solid #00000099;
+}
+
+.container .calcForm .deleteFormButton {
+  margin-right: 20px;
+}
+
+.container .calcForm .descriptionInput {
+  border: none;
+  line-height: 40px;
+  outline: none;
+  min-width: 200px;
+  vertical-align: top;
+}
+
+.container .calcForm .info {
+  padding: 20px 0;
+  color: #999;
+}
+
+.container .calcForm table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.container .calcForm table .closeCell {
+  text-align: center;
+}
+
+.container .calcForm table .calculationRows {
+  border-top: 2px solid #eee;
+  border-bottom: 2px solid #eee;
+}
+
+.container .calcForm table td, .container .calcForm table th {
+  border: 1px solid #00000033;
+}
+
+.container .calcForm table th {
+  color: #444;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.container .calcForm table td {
+  padding: 5px;
+  color: #222;
+  font-size: 14px;
+}
+
+.container .calcForm table td input {
+  font-size: 14px;
+  line-height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
 }
 /*# sourceMappingURL=style.css.map */
