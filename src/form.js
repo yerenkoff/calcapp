@@ -97,7 +97,7 @@ class Form extends React.Component {
                         </tr>
                     </thead>
                     <tbody className="calculationRows">
-                        <CalculationRows channelData={this.state.channelData} opportunity={this.state.opportunity} onDataChange={this.handleData}/>
+                        <CalculationRows handleCalculate={this.props.handleCalculate} handleDeleteRow={this.props.handleDeleteRow} channelData={this.state.channelData} opportunity={this.state.opportunity} onDataChange={this.handleData} formId={this.props.formId}/>
                          {/* {
                              this.state.rows
                          }

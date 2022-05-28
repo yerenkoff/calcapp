@@ -14,15 +14,21 @@ class Container extends React.Component {
         [
           {
             channelName: "Яндекс.Директ",
-            leads: 15,
-            leadPrice: 1300,
-            channelCost: 90000,
+            clicks: 13000,
+            clickPrice: 130,
+            conversion: 12,
+            leads: 115,
+            leadPrice: 11300,
+            channelCost: 190000,
+
           },
         ]
       ],
     }
     // this.handleAddChannel = this.handleAddChannel.bind(this);
     this.handleSetCurrentForm = this.handleSetCurrentForm.bind(this);
+    this.handleDeleteRow = this.handleDeleteRow.bind(this);
+    this.handleCalculate = this.handleCalculate.bind(this);
   }
 
   // componentDidMount() {
@@ -32,6 +38,46 @@ class Container extends React.Component {
   handleSetCurrentForm(formId) {
     this.setState({ currentForm: formId })
     console.log(formId);
+  }
+
+  handleCalculate(formId, rowId, property, value, opportunity) {
+    console.log(formId, rowId, property, value, opportunity);
+    this.setState(function (state) {
+      let newFormData = state.formData;
+      // newFormData[formId].splice(rowId, 1);
+      // console.log(formId, rowId);
+      let currentRow = newFormData[formId][rowId]
+      currentRow[property] = value;
+
+      if (opportunity) {
+        currentRow.channelCost=currentRow.clicks * currentRow.clickPrice;
+      } else {
+        currentRow.clicks= (currentRow.channelCost / currentRow.clickPrice).toFixed(2);
+      }
+
+      currentRow.leadPrice=currentRow.clickPrice * 100 / currentRow.conversion;
+      currentRow.leads= (currentRow.channelCost / Math.round(currentRow.clickPrice * 100 / currentRow.conversion)).toFixed(2);
+
+      return {
+        formData: newFormData,
+      }
+    }, function () {
+      console.log(this.state.formData);
+    })
+  }
+
+  handleDeleteRow(formId, rowId) {
+    this.setState(function (state) {
+      let newFormData = state.formData;
+      newFormData[formId].splice(rowId, 1);
+      // console.log(formId, rowId);
+      // console.log(newFormData);
+      return {
+        formData: newFormData,
+      }
+    }, function () {
+      // console.log(this.state.formData);
+    })
   }
 
   // handleAddChannel(formId) {
@@ -56,6 +102,9 @@ class Container extends React.Component {
       let newFormData = state.formData;
       newFormData[this.state.currentForm].push({
         channelName: document.querySelector('input[name="channelType"]:checked').value,
+        clicks: 13000,
+        clickPrice: 130,
+        conversion: 12,
         leads: 15,
         leadPrice: 1300,
         channelCost: 90000,
@@ -71,10 +120,11 @@ class Container extends React.Component {
   }
 
   render() {
+
     var indents = [];
     for (var i = 0; i < this.state.formData.length; i++) {
       indents.push(
-        <Form handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
+        <Form handleCalculate={this.handleCalculate} handleDeleteRow={this.handleDeleteRow} handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
       );
     }
     return (
@@ -104,7 +154,7 @@ class Container extends React.Component {
         }
 
 
-        <button className="addFormButton" onClick={() => this.setState(function(state){
+        <button className="addFormButton" onClick={() => this.setState(function (state) {
           let newFormData = state.formData;
           newFormData.push([{
             channelName: "Яндекс.Директ",
