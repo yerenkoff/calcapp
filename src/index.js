@@ -7,29 +7,24 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.sumLeads = this.sumLeads.bind(this);
     this.state = {
-      
+      forms: [<Form key={0}/>],
     }
     
   }
-
   
-
-  sumLeads() {
-    // this.setState({temperature: e.target.value});
-  }
-
-  
-
-  
-
   render() {
     return (
       <div className='container'>
         
         <h1>Calculator</h1>
-        <Form />
+        {
+          this.state.forms
+        }
+        
+        <button className="addFormButton" onClick={() => this.setState((state, props) => ({
+          forms: state.forms.concat([<Form key={state.forms.length}/>])
+        }))}>Добавить расчёт</button>
       </div>
     )
   }
