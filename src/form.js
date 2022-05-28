@@ -7,15 +7,11 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            formId: this.props.formId,
             opportunity: true,
             channelType: "Яндекс.Директ",
             rows: [],
-            channelData: [{
-                channelName: "Яндекс.Директ",
-                leads: 15,
-                leadPrice: 1300,
-                channelCost: 90000,
-            }],
+            channelData: this.props.channelData,
             rowData: [[]],
             leadSum: 60,
             leadPriceSum: 1500,
@@ -65,40 +61,16 @@ class Form extends React.Component {
         console.log(this.state.opportunity);
     }
 
-    addRow = () => {
-        this.setState((state, props) => ({
-            channelData: state.channelData.concat({
-                channelName: document.querySelector('input[name="channelType"]:checked').value,
-                leads: 15,
-                leadPrice: 1300,
-                channelCost: 90000,
-            }),
-        }));
-        console.log(this.state.rows);
+    
+
+    newChannelClick = () => {
+        this.props.handleSetCurrentForm(this.state.formId);
     }
 
     render() {
         return (
             <div>
-                <div className="modal">
-                    <form action="">
-                        <button className="close" type="button">╳</button>
-                        <h2>Добавить канал</h2>
-                        <input type="radio" id="yandex" name="channelType" value="Яндекс.Директ" defaultChecked onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="yandex">Яндекст.Директ</label><br />
-                        <input type="radio" id="google" name="channelType" value="Google.Adwords" onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="google">Google.Adwords</label><br />
-                        <input type="radio" id="seo" name="channelType" value="SEO" onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="seo">SEO</label><br />
-                        <input type="radio" id="vk" name="channelType" value="ВКонтакте" onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="vk">ВКонтакте</label><br />
-                        <input type="radio" id="ok" name="channelType" value="Одноклассники" onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="ok">Одноклассники</label><br />
-                        <input type="radio" id="email" name="channelType" value="Email рассылка" onChange={(event) => this.setState({ channelType: event.target.value })} />
-                        <label htmlFor="email">Email рассылка</label><br />
-                        <button id="buttonAdd" type="button" onClick={this.addRow}>Добавить</button>
-                    </form>
-                </div>
+                
                 <button type="button">
                     <svg version="1.1" meta="vk-icons-close" width="20" height="20" viewBox="0 0 20 20">
                         <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,16 L4,4"></path>
@@ -134,7 +106,7 @@ class Form extends React.Component {
                     <tbody>
                         <tr>
                             <td>
-                                <button className="newChannel opportunityButton" type="button">НОВЫЙ КАНАЛ</button>
+                                <button onClick={this.newChannelClick} className="newChannel opportunityButton" type="button">НОВЫЙ КАНАЛ{this.props.formId}</button>
                             </td>
                             <td colSpan="3">
                                 Лиды (звонки и заявки)
