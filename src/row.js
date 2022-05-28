@@ -70,25 +70,25 @@ class Row extends React.Component {
     }
 
     render() {
-        console.log(this.props.channelData.clicks);
+        
         return (
             <tr className="calculationRow">
                 <td>{this.props.channelData.channelName}</td>
                 <td>
                     {
-                        this.props.opportunity ? <input type="number" defaultValue={this.props.channelData.clicks} value={this.props.channelData.clicks} className="clicksInput" onChange={(event) => this.calculate("clicks", parseInt(event.target.value))} /> : this.props.channelData.clicks
+                        this.props.opportunity ? <input type="number" value={this.props.channelData.clicks} className="clicksInput" onChange={(event) => this.calculate("clicks", parseInt(event.target.value))} /> : this.props.channelData.clicks
                     }
 
                 </td>
-                <td><input type="number" defaultValue={this.props.channelData.clickPrice} value={this.props.channelData.clickPrice} className="clickPriceInput" onChange={(event) => this.calculate("clickPrice", parseInt(event.target.value))} />
+                <td><input type="number" value={this.props.channelData.clickPrice} className="clickPriceInput" onChange={(event) => this.calculate("clickPrice", parseInt(event.target.value))} />
                 </td>
-                <td><input type="number" defaultValue={this.props.channelData.conversion} value={this.props.channelData.conversion} className="conversionInput" onChange={(event) => this.calculate("conversion", parseInt(event.target.value))}/>
+                <td><input type="number" value={this.props.channelData.conversion} className="conversionInput" onChange={(event) => this.calculate("conversion", parseInt(event.target.value))}/>
                 </td>
                 <td className="leadCell">{this.props.channelData.leads}</td>
                 <td className="leadPriceCell">{this.props.channelData.leadPrice}</td>
                 <td className="channelCostCell">
                     {
-                        this.props.opportunity ? this.props.channelData.channelCost : <input type="number" defaultValue={this.props.channelData.channelCost} className="clicksInput" onChange={(event) => this.calculate("channelCost", parseInt(event.target.value))}/>
+                        this.props.opportunity ? this.props.channelData.channelCost : <input type="number" value={this.props.channelData.channelCost} className="clicksInput" onChange={(event) => this.calculate("channelCost", parseInt(event.target.value))}/>
                     }
                 </td>
                 <td>

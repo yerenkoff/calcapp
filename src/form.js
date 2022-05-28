@@ -26,7 +26,7 @@ class Form extends React.Component {
         this.setState((state, props) => ({
             rowData: state.rowData
         }));
-        this.setState(function(state, props) {
+        this.setState(function (state, props) {
             let newChannelData = state.channelData;
             newChannelData[rowData.rowId].leads = rowData.leads;
             newChannelData[rowData.rowId].leadPrice = rowData.leadPrice;
@@ -34,7 +34,7 @@ class Form extends React.Component {
             return {
                 channelData: newChannelData,
             };
-        }, function() {
+        }, function () {
             let newLeadSum = 0;
             let newLeadPriceSum = 0;
             let newChannelCostSum = 0;
@@ -53,7 +53,7 @@ class Form extends React.Component {
     }
 
     componentDidMount() {
-        this.setState((state, props) => ({rows: [<Row key={"row"+0} name="Яндекс.Директ" opportunity={this.state.opportunity}/>]}))
+        this.setState((state, props) => ({ rows: [<Row key={"row" + 0} name="Яндекс.Директ" opportunity={this.state.opportunity} />] }))
     }
 
     change = (param) => {
@@ -61,17 +61,26 @@ class Form extends React.Component {
         console.log(this.state.opportunity);
     }
 
-    
+
 
     newChannelClick = () => {
         this.props.handleSetCurrentForm(this.state.formId);
     }
 
     render() {
+        // console.log(this.props.formSums.leadPriceSum);
+        let leadSumCell = 0;
+        let leadPriceSumCell = 0;
+        let channelCostSumCell = 0;
+        for (let i of this.props.channelData) {
+            leadSumCell += i.leads;
+            leadPriceSumCell += i.leadPrice;
+            channelCostSumCell += i.channelCost;
+        }
         return (
             <div>
-                
-                <button type="button">
+
+                <button type="button" onClick={() => this.props.handleDeleteForm(this.props.formId)}>
                     <svg version="1.1" meta="vk-icons-close" width="20" height="20" viewBox="0 0 20 20">
                         <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,16 L4,4"></path>
                         <path fill="none" stroke="#000" strokeWidth="1.06" d="M16,4 L4,16"></path>
@@ -97,8 +106,8 @@ class Form extends React.Component {
                         </tr>
                     </thead>
                     <tbody className="calculationRows">
-                        <CalculationRows handleCalculate={this.props.handleCalculate} handleDeleteRow={this.props.handleDeleteRow} channelData={this.state.channelData} opportunity={this.state.opportunity} onDataChange={this.handleData} formId={this.props.formId}/>
-                         {/* {
+                        <CalculationRows handleCalculate={this.props.handleCalculate} handleDeleteRow={this.props.handleDeleteRow} channelData={this.props.channelData} opportunity={this.state.opportunity} onDataChange={this.handleData} formId={this.props.formId} />
+                        {/* {
                              this.state.rows
                          }
                          <Row key={"row" + this.state.rows.length} name={"dsdss"} opportunity={this.state.opportunity} /> */}
@@ -111,22 +120,22 @@ class Form extends React.Component {
                             <td colSpan="3">
                                 Лиды (звонки и заявки)
                             </td>
-                            <td className="leadSumCell">{this.state.leadSum}</td>
-                            <td className="leadPriceSumCell">{this.state.leadPriceSum}</td>
-                            <td className="channelCostSumCell">{this.state.channelCostSum}</td>
+                            <td className="leadSumCell">{leadSumCell}</td>
+                            <td className="leadPriceSumCell">{leadPriceSumCell}</td>
+                            <td className="channelCostSumCell">{channelCostSumCell}</td>
                         </tr>
                         <tr>
                             <td colSpan="4">
                                 Конверсия лидов в продажи, %
                             </td>
                             <td>
-                                <input type="number" defaultValue={this.state.conversionInSales} className="resultLeadsInput" onChange={(event) => this.setState({conversionInSales: event.target.value})}/>
+                                <input type="number" value={this.props.formSums.conversionInSales} className="resultLeadsInput" onChange={(event) => this.props.handleConversion(this.props.formId, event.target.value)} />
                             </td>
                         </tr>
                         <tr>
                             <td colSpan="4">Продажи</td>
-                            <td className="resultLeadsCell">{this.state.leadSum / 100 * this.state.conversionInSales}</td>
-                            <td className="resultLeadPriceCell">{this.state.channelCostSum / (this.state.leadSum / 100 * this.state.conversionInSales)}</td>
+                            <td className="resultLeadsCell">{this.props.formSums.leadSum / 100 * this.props.formSums.conversionInSales}</td>
+                            <td className="resultLeadPriceCell">{this.props.formSums.channelCostSum / (this.props.formSums.leadSum / 100 * this.props.formSums.conversionInSales)}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -20,15 +20,26 @@ class Container extends React.Component {
             leads: 115,
             leadPrice: 11300,
             channelCost: 190000,
-
           },
         ]
       ],
+      formSums: [
+        {
+          leadSum: 70,
+          leadPriceSum: 1500,
+          channelCostSum: 90000,
+          conversionInSales: 90,
+          // sales: 50,
+          // customerPrice: 15000,
+        }
+      ]
     }
     // this.handleAddChannel = this.handleAddChannel.bind(this);
     this.handleSetCurrentForm = this.handleSetCurrentForm.bind(this);
     this.handleDeleteRow = this.handleDeleteRow.bind(this);
     this.handleCalculate = this.handleCalculate.bind(this);
+    this.handleDeleteForm = this.handleDeleteForm.bind(this);
+    this.handleConversion = this.handleConversion.bind(this);
   }
 
   // componentDidMount() {
@@ -40,29 +51,69 @@ class Container extends React.Component {
     console.log(formId);
   }
 
-  handleCalculate(formId, rowId, property, value, opportunity) {
-    console.log(formId, rowId, property, value, opportunity);
+  handleConversion(formId, value) {
+    this.setState(function (state) {
+      let newFormSums = state.formSums;
+      newFormSums[formId].conversionInSales = value;
+      return {
+        formSums: newFormSums,
+      }
+    })
+    // console.log(formId);
+  }
+
+  handleDeleteForm(formId) {
     this.setState(function (state) {
       let newFormData = state.formData;
-      // newFormData[formId].splice(rowId, 1);
+      newFormData.splice(formId, 1);
       // console.log(formId, rowId);
-      let currentRow = newFormData[formId][rowId]
-      currentRow[property] = value;
-
-      if (opportunity) {
-        currentRow.channelCost=currentRow.clicks * currentRow.clickPrice;
-      } else {
-        currentRow.clicks= (currentRow.channelCost / currentRow.clickPrice).toFixed(2);
-      }
-
-      currentRow.leadPrice=currentRow.clickPrice * 100 / currentRow.conversion;
-      currentRow.leads= (currentRow.channelCost / Math.round(currentRow.clickPrice * 100 / currentRow.conversion)).toFixed(2);
-
+      // console.log(newFormData);
       return {
         formData: newFormData,
       }
     }, function () {
-      console.log(this.state.formData);
+      // console.log(this.state.formData);
+    })
+  }
+
+  handleCalculate(formId, rowId, property, value, opportunity) {
+    this.setState(function (state) {
+      let newFormData = state.formData;
+      let newFormSums = state.formSums;
+      // newFormData[formId].splice(rowId, 1);
+      console.log(newFormSums);
+      let currentRow = newFormData[formId][rowId]
+      currentRow[property] = value;
+
+      if (opportunity) {
+        currentRow.channelCost = currentRow.clicks * currentRow.clickPrice;
+      } else {
+        currentRow.clicks = (currentRow.channelCost / currentRow.clickPrice).toFixed(2);
+      }
+
+      currentRow.leadPrice = currentRow.clickPrice * 100 / currentRow.conversion;
+      currentRow.leads = (currentRow.channelCost / Math.round(currentRow.clickPrice * 100 / currentRow.conversion)).toFixed(2);
+      let newLeadSum = 0;
+      let newLeadPriceSum = 0;
+      let newChannelCostSum = 0;
+      let currentForm = newFormData[formId];
+
+      let currentFormSums = newFormSums[formId];
+      for (let form = 0; form<currentForm.length; form++) {
+        newLeadSum += parseInt(currentForm[form].leads)
+        newLeadPriceSum += parseInt(currentForm[form].leadPrice)
+        newChannelCostSum += parseInt(currentForm[form].channelCost)
+      }
+      currentFormSums.leadSum = newLeadSum;
+      currentFormSums.leadPriceSum = newLeadPriceSum;
+      currentFormSums.channelCostSum = newChannelCostSum;
+
+      return {
+        formData: newFormData,
+        formSums: newFormSums,
+      }
+    }, function () {
+      console.log(this.state.formSums);
     })
   }
 
@@ -124,9 +175,10 @@ class Container extends React.Component {
     var indents = [];
     for (var i = 0; i < this.state.formData.length; i++) {
       indents.push(
-        <Form handleCalculate={this.handleCalculate} handleDeleteRow={this.handleDeleteRow} handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
+        <Form formSums={this.state.formSums[i]} handleConversion={this.handleConversion} handleDeleteForm={this.handleDeleteForm} handleCalculate={this.handleCalculate} handleDeleteRow={this.handleDeleteRow} handleSetCurrentForm={this.handleSetCurrentForm} key={i} channelData={this.state.formData[i]} formId={i} />
       );
     }
+    // console.log(indents);
     return (
       <div className='container'>
         <div className="modal">
@@ -158,12 +210,24 @@ class Container extends React.Component {
           let newFormData = state.formData;
           newFormData.push([{
             channelName: "Яндекс.Директ",
+            clicks: 13000,
+            clickPrice: 130,
+            conversion: 12,
             leads: 15,
             leadPrice: 1300,
             channelCost: 90000,
-          }])
+          }]);
+          let newFormSums = state.formSums;
+          newFormSums.push({
+            leadSum: 60,
+            leadPriceSum: 1500,
+            channelCostSum: 90000,
+            sales: 50,
+            customerPrice: 15000,
+          });
           return {
             formData: newFormData,
+            formSums: newFormSums,
           }
         })}>Добавить расчёт</button>
       </div>
