@@ -1,0 +1,11 @@
+{
+  "main.js": "/calcapp/static/js/main.996725df.chunk.js",
+  "main.js.map": "/calcapp/static/js/main.996725df.chunk.js.map",
+  "static/js/1.cfda1b89.chunk.js": "/calcapp/static/js/1.cfda1b89.chunk.js",
+  "static/js/1.cfda1b89.chunk.js.map": "/calcapp/static/js/1.cfda1b89.chunk.js.map",
+  "runtime~main.js": "/calcapp/static/js/runtime~main.cf5428ee.js",
+  "runtime~main.js.map": "/calcapp/static/js/runtime~main.cf5428ee.js.map",
+  "index.html": "/calcapp/index.html",
+  "precache-manifest.bf880edb990c3060c78e743c0fe7f981.js": "/calcapp/precache-manifest.bf880edb990c3060c78e743c0fe7f981.js",
+  "service-worker.js": "/calcapp/service-worker.js"
+}
