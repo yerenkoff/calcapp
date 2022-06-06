@@ -6,6 +6,33 @@
 
 body {
   background-image: url("bg.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+aside {
+  width: 200px;
+  padding: 0 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  float: left;
+  position: fixed;
+  background-color: #ffffff1f;
+  top: 0;
+  left: 0;
+  height: 100%;
+  text-align: center;
+  padding-top: 30px;
+  border-right: 1px solid #ffffff54;
+}
+
+aside a {
+  line-height: 40px;
+  display: block;
+  text-decoration: none;
+  color: #222;
+  margin-bottom: 5px !important;
 }
 
 h1, h2 {
@@ -17,7 +44,24 @@ h1, h2 {
           transform: translateY(0) !important;
 }
 
-.modal {
+.analysisModal img {
+  width: 100%;
+  max-height: calc(100% - 100px);
+  -o-object-fit: contain;
+     object-fit: contain;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.analysisModal h2 {
+  text-align: center;
+  margin-top: 40px;
+  color: white;
+  text-shadow: 0 0 20px black;
+}
+
+.modal, .analysisModal {
   background-color: #00000044;
   -webkit-backdrop-filter: blur(10px);
           backdrop-filter: blur(10px);
@@ -32,7 +76,7 @@ h1, h2 {
   transition: 0.5s;
 }
 
-.modal form {
+.modal form, .analysisModal form {
   background: white;
   width: 90%;
   max-width: 600px;
@@ -49,7 +93,7 @@ h1, h2 {
           box-sizing: border-box;
 }
 
-.modal form .close {
+.modal form .close, .analysisModal form .close {
   width: 40px;
   height: 40px;
   border: none;
@@ -61,27 +105,27 @@ h1, h2 {
   cursor: pointer;
 }
 
-.modal form .close:hover {
+.modal form .close:hover, .analysisModal form .close:hover {
   background: #eee;
 }
 
-.modal form h2 {
+.modal form h2, .analysisModal form h2 {
   line-height: 40px;
   margin-bottom: 30px;
 }
 
-.modal form input, .modal form label {
+.modal form input, .modal form label, .analysisModal form input, .analysisModal form label {
   line-height: 30px;
   height: 30px;
   vertical-align: middle;
   display: inline-block;
 }
 
-.modal form label {
+.modal form label, .analysisModal form label {
   margin-left: 10px;
 }
 
-.modal form #buttonAdd {
+.modal form #buttonAdd, .analysisModal form #buttonAdd {
   margin-top: 30px;
   line-height: 40px;
   padding: 0 20px;
@@ -91,21 +135,7 @@ h1, h2 {
   border-radius: 5px;
 }
 
-.container {
-  background-color: #ffffffdd;
-  width: calc(100% - 20px);
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border-radius: 15px;
-  margin-top: 30px;
-  -webkit-box-shadow: 0 0 20px #00000044;
-          box-shadow: 0 0 20px #00000044;
-}
-
-.container .tableButton {
+.tableButton, #analysis {
   -webkit-box-shadow: 0 0 20px #00000022;
           box-shadow: 0 0 20px #00000022;
   background-color: #fff;
@@ -121,10 +151,32 @@ h1, h2 {
   border: 1px solid #00000022;
 }
 
-.container .tableButton:hover {
+.tableButton:hover, #analysis:hover {
   -webkit-box-shadow: 0 0 10px #00000055;
           box-shadow: 0 0 10px #00000055;
   border: 1px solid #00000099;
+}
+
+.container {
+  background-color: #ffffffdd;
+  width: calc(100% - 240px);
+  max-width: 1200px;
+  margin: 0 20px;
+  padding: 20px;
+  float: right;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 15px;
+  margin-top: 30px;
+  -webkit-box-shadow: 0 0 20px #00000044;
+          box-shadow: 0 0 20px #00000044;
+}
+
+.container #analysis {
+  display: block;
+  margin: auto;
+  padding: 5px 50px;
+  margin-top: 20px;
 }
 
 .container h1 {

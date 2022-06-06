@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "996725df201c1e6d3f72",
-    "url": "/calcapp/static/js/main.996725df.chunk.js"
+    "revision": "1a233aa577cc38855561",
+    "url": "/calcapp/static/js/main.1a233aa5.chunk.js"
   },
   {
     "revision": "cfda1b899bd53eb4481d",
@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/calcapp/static/js/runtime~main.cf5428ee.js"
   },
   {
-    "revision": "5b7c19b72c23856a70239c6fb5e7f18a",
+    "revision": "4caa7eab188509ffc1cc87ec03cb1bc7",
     "url": "/calcapp/index.html"
   }
 ];
