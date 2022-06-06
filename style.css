@@ -158,7 +158,7 @@ h1, h2 {
   background-color: #ffffffdd;
   width: calc(100% - 240px);
   margin: 0 20px;
-  padding: 20px;
+  padding: 20px 100px;
   float: right;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
